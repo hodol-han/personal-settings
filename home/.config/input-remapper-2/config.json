@@ -1,6 +1,7 @@
 {
-    "version": "2.0.1",
+    "version": "2.1.1",
     "autoload": {
-        "CHERRY Mechanical Keyboard": "\ud55c\uae00"
+        "CHERRY Mechanical Keyboard": "\ud55c\uae00",
+        "AT Translated Set 2 keyboard": "Hangul"
     }
 }
