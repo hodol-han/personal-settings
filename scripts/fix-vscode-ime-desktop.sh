@@ -18,6 +18,7 @@ readonly X11_OPTIONS=(
   "--ozone-platform=x11"
 )
 readonly WAYLAND_OPTIONS=(
+  "--ozone-platform=wayland"
   "--enable-wayland-ime"
   "--wayland-text-input-version=3"
 )
