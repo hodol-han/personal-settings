@@ -32,19 +32,10 @@ remove_options=()
 temp_files_to_clean=()
 
 # Source utility scripts
-# shellcheck source=scripts/string-utils.sh
 source "${script_dir}/string-utils.sh"
+source "${script_dir}/ensure-root.sh"
 
 # --- Functions ---
-
-ensure_root() {
-  if [ "$(id -u)" != '0' ]; then
-    echo "$(basename "$0") requires to be run as root. Entering root..."
-    # Pass the DISPLAY_SERVER variable to the new process if it was set.
-    exec sudo -- \
-      env DISPLAY_SERVER="${DISPLAY_SERVER:-}" "${BASH_SOURCE[0]}" "$@"
-  fi
-}
 
 configure_options() {
   local display_server="$1"

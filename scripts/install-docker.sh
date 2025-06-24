@@ -2,11 +2,12 @@
 
 set -e
 
-if [ "$(id -u)" != '0' ]; then
-  # Restart script as postgres user when run as root.
-  echo "$(basename "$0") requires to be run as root. Entering root..."
-  exec sudo -- "${BASH_SOURCE[0]}" "$@"
-fi
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# shellcheck source=scripts/ensure-root.sh
+source "${script_dir}/ensure-root.sh"
+
+ensure_root "$@"
 
 ## See https://docs.docker.com/engine/install/debian/
 

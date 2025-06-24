@@ -59,12 +59,12 @@ if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
   usage
 fi
 
-# Execute the script as root if not already running as root.
-# This is necessary for installing packages.
-if [ "$(id -u)" != '0' ]; then
-  echo "$(basename "$0") requires to be run as root. Entering root..."
-  exec sudo -- "${BASH_SOURCE[0]}" "$@"
-fi
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# shellcheck source=scripts/ensure-root.sh
+source "${script_dir}/ensure-root.sh"
+
+ensure_root "$@"
 
 # Check if curl is installed
 if ! command -v curl > /dev/null 2>&1; then

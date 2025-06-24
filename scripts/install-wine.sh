@@ -12,12 +12,12 @@ if command -v wine > /dev/null 2>&1; then
   exit 0
 fi
 
-# Execute the script as root if not already running as root.
-# This is necessary for installing packages.
-if [ "$(id -u)" != '0' ]; then
-  echo "$(basename "$0") requires to be run as root. Entering root..."
-  exec sudo -- "${BASH_SOURCE[0]}" "$@"
-fi
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# shellcheck source=scripts/ensure-root.sh
+source "${script_dir}/ensure-root.sh"
+
+ensure_root "$@"
 
 # See https://gitlab.winehq.org/wine/wine/-/wikis/Debian-Ubuntu
 # for the latest version.

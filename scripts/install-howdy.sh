@@ -5,12 +5,12 @@
 
 set -euo pipefail
 
-# Execute the script as root if not already running as root.
-# This is necessary for installing packages.
-if [ "$(id -u)" != '0' ]; then
-  echo "$(basename "$0") requires to be run as root. Entering root..."
-  exec sudo -- "${BASH_SOURCE[0]}" "$@"
-fi
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# shellcheck source=scripts/ensure-root.sh
+source "${script_dir}/ensure-root.sh"
+
+ensure_root "$@"
 
 # Original howdy package by boltgolt breaks system packages as it uses pip to
 # install required packages, so use the PPA from ubuntuhandbook1 instead. It
