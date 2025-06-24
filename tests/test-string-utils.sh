@@ -4,7 +4,7 @@
 
 # Get the directory where this script is located
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "${script_dir}/../scripts/string-utils.sh"
+source "${script_dir}/../scripts/includes/string-utils.sh"
 
 echo "Running unit tests for string-utils.sh..."
 

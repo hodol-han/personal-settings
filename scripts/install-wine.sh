@@ -14,8 +14,8 @@ fi
 
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# shellcheck source=scripts/ensure-root.sh
-source "${script_dir}/ensure-root.sh"
+# shellcheck source=scripts/includes/ensure-root.sh
+source "${script_dir}/includes/ensure-root.sh"
 
 ensure_root "$@"
 

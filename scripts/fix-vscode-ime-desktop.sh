@@ -32,8 +32,8 @@ remove_options=()
 temp_files_to_clean=()
 
 # Source utility scripts
-source "${script_dir}/string-utils.sh"
-source "${script_dir}/ensure-root.sh"
+source "${script_dir}/includes/ensure-root.sh"
+source "${script_dir}/includes/string-utils.sh"
 
 # --- Functions ---
 

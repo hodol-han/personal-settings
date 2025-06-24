@@ -4,11 +4,7 @@
 #              This version is "bulletproofed" with Bash existence and version checks.
 #
 # Usage in your main script:
-#   # It's good practice to get the script's directory first.
-#   SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-#   source "${SCRIPT_DIR}/ensure-root.sh"
-#
-#   # Call the function at the beginning of your script's logic.
+#   # Include and call this when you need.
 #   ensure_root "$@"
 #
 
