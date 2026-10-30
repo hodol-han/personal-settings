@@ -18,9 +18,14 @@
   with `scripts/ste100/apply.sh` of the personal-settings repository.
   - `ste100.md`: all pages except the dictionary body (front matter, change log, writing
     rules, dictionary introduction, index), with one heading per page and its page label.
+    Underlined text is in `<u></u>`. Spaces keep table columns apart.
   - `dictionary.json`: dictionary entries with `word`, `pos`, `approved`, `forms`,
-    `senses` (`meaning` or `alternative`, `ste_examples`, `non_ste_examples`), `page`,
-    and `pdf_page`.
+    `help` (notes on the word), `senses` (`meaning` or `alternative`, `help` notes,
+    `ste_examples`, `non_ste_examples`), `page`, and `pdf_page`. A phrase headword can have
+    an empty `pos`. In an approved entry, `alternative` senses are the words to use for
+    other meanings. A sense with empty text is a row with a help note and, usually, examples.
+    A note that introduces many alternatives is on the first one. The two example lists are
+    not paired by index.
   - `ASD-STE100_ISSUE9.pdf`: the original.
 - When you write or check STE text, look up each word in `dictionary.json`, not from memory.
   Cite rules by number and page label from `ste100.md`. For example:
