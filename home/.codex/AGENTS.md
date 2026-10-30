@@ -48,12 +48,13 @@ The items on the right still have value, but prioritize those on the left.
 ## ASD-STE100 Simplified Technical English
 
 - A local copy of ASD-STE100 Issue 9 is in `~/.local/share/ste100/issue9/`. Source:
-  <https://doi.org/10.5281/zenodo.23666005>. If it is missing, run
-  `~/git/personal-settings/scripts/ste100/apply.sh`.
+  <https://doi.org/10.5281/zenodo.23666005>. If it is missing, ask the user to install it
+  with `scripts/ste100/apply.sh` of the personal-settings repository.
   - `ste100.md`: all pages except the dictionary body (front matter, change log, writing
-    rules, dictionary introduction, index), with one heading per page label.
+    rules, dictionary introduction, index), with one heading per page and its page label.
   - `dictionary.json`: dictionary entries with `word`, `pos`, `approved`, `forms`,
-    `senses` (`meaning` or `alternative`, `ste_examples`, `non_ste_examples`), and `page`.
+    `senses` (`meaning` or `alternative`, `ste_examples`, `non_ste_examples`), `page`,
+    and `pdf_page`.
   - `ASD-STE100_ISSUE9.pdf`: the original.
 - When you write or check STE text, look up each word in `dictionary.json`, not from memory.
   Cite rules by number and page label from `ste100.md`. For example:

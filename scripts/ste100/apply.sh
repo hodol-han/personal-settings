@@ -57,7 +57,7 @@ fetch_pdf() {
   elif has_md5 "$DATA_DIR/$FILE"; then
     cp -- "$DATA_DIR/$FILE" "$target"
   else
-    curl -fsSL --retry 3 --max-time 300 -o "$target" "$URL"
+    curl -fsSL --retry 3 --retry-connrefused --max-time 300 -o "$target" "$URL"
   fi
   if ! has_md5 "$target"; then
     echo "checksum mismatch for $FILE (expected md5 $MD5)" >&2
@@ -69,11 +69,20 @@ install_data() {
   "$VENV/bin/python" "$REPO/scripts/ste100/extract.py" "$STAGE/$FILE" "$STAGE"
   chmod 0755 "$STAGE"
   chmod 0644 "$STAGE"/*
+  # Check the new data before it replaces the installed copy.
+  STE100_DIR="$STAGE" "$REPO/scripts/ste100/verify.sh" --data-only
   local old="$DATA_DIR.old.$$"
+  rm -rf -- "$DATA_DIR".old.*
   if [[ -d "$DATA_DIR" ]]; then
     mv -- "$DATA_DIR" "$old"
   fi
-  mv -- "$STAGE" "$DATA_DIR"
+  if ! mv -- "$STAGE" "$DATA_DIR"; then
+    if [[ -d "$old" ]]; then
+      mv -- "$old" "$DATA_DIR"
+    fi
+    echo "could not install $DATA_DIR; the previous data is kept" >&2
+    exit 1
+  fi
   rm -rf -- "$old"
 }
 
