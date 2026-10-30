@@ -1,0 +1,11 @@
+startup --host_jvm_args=-Xmx1500m
+startup --shutdown_on_low_sys_mem
+startup --max_idle_secs=300
+
+build --jobs=2
+build --local_resources=memory=6144
+build --worker_max_instances=1
+build --worker_quit_after_build
+build --disk_cache=@BAZEL_DISK_CACHE@
+
+test --local_test_jobs=1
