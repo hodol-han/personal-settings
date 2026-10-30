@@ -94,7 +94,7 @@ echo "verified: ste100.md"
 
 for path in .claude/CLAUDE.md .codex/AGENTS.md; do
   if ! grep -qF 'ste100/issue9/' "$HOME/$path"; then
-    fail "no STE100 reference in ~/$path; install it with $REPO/scripts/cck-bazel/apply.sh"
+    fail "no STE100 reference in ~/$path; install it with $REPO/scripts/agent-instructions/apply.sh"
   fi
   echo "verified: STE100 reference in ~/$path"
 done

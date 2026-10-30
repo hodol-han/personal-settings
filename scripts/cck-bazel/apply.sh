@@ -11,8 +11,6 @@ TIMER_ENABLED_BEFORE="$(systemctl --user is-enabled systemd-tmpfiles-clean.timer
 TIMER_ACTIVE_BEFORE="$(systemctl --user is-active systemd-tmpfiles-clean.timer 2> /dev/null || true)"
 PATHS=(
   .bazelrc
-  .codex/AGENTS.md
-  .claude/CLAUDE.md
   .config/user-tmpfiles.d/cck-bazel-cache.conf
 )
 declare -A EXISTED=()
@@ -26,10 +24,6 @@ mkdir -p "$STAGE_DIR/home"
 while IFS= read -r line || [[ -n "$line" ]]; do
   printf '%s\n' "${line//@BAZEL_DISK_CACHE@/$CACHE_DIR}"
 done < "$REPO/home/.bazelrc.template" > "$STAGE_DIR/home/.bazelrc"
-install -D -m 0644 "$REPO/home/.codex/AGENTS.md" \
-  "$STAGE_DIR/home/.codex/AGENTS.md"
-install -D -m 0644 "$REPO/home/.claude/CLAUDE.md" \
-  "$STAGE_DIR/home/.claude/CLAUDE.md"
 install -D -m 0644 \
   "$REPO/home/.config/user-tmpfiles.d/cck-bazel-cache.conf" \
   "$STAGE_DIR/home/.config/user-tmpfiles.d/cck-bazel-cache.conf"

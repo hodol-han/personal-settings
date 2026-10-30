@@ -14,13 +14,9 @@ done < "$REPO/home/.bazelrc.template" > "$EXPECTED_RC"
 cmp "$EXPECTED_RC" "$HOME/.bazelrc"
 echo "verified: ~/.bazelrc"
 
-for path in \
-  .codex/AGENTS.md \
-  .claude/CLAUDE.md \
-  .config/user-tmpfiles.d/cck-bazel-cache.conf; do
-  cmp "$REPO/home/$path" "$HOME/$path"
-  echo "verified: ~/$path"
-done
+cmp "$REPO/home/.config/user-tmpfiles.d/cck-bazel-cache.conf" \
+  "$HOME/.config/user-tmpfiles.d/cck-bazel-cache.conf"
+echo "verified: ~/.config/user-tmpfiles.d/cck-bazel-cache.conf"
 
 systemd-tmpfiles --user --create \
   "$HOME/.config/user-tmpfiles.d/cck-bazel-cache.conf"
