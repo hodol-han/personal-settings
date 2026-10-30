@@ -17,9 +17,9 @@ SOURCE_PDF="${1:-}"
 
 missing=()
 for tool in curl md5sum jq; do
-  command -v "$tool" >/dev/null || missing+=("$tool")
+  command -v "$tool" > /dev/null || missing+=("$tool")
 done
-if ! command -v uv >/dev/null && ! python3 -c 'import ensurepip, venv' 2>/dev/null; then
+if ! command -v uv > /dev/null && ! python3 -c 'import ensurepip, venv' 2> /dev/null; then
   missing+=("uv or python3-venv")
 fi
 if ((${#missing[@]})); then
@@ -37,10 +37,10 @@ has_md5() {
 
 ensure_venv() {
   local check="import pdfplumber; assert pdfplumber.__version__ == '$PDFPLUMBER_VERSION'"
-  if [[ -x "$VENV/bin/python" ]] && "$VENV/bin/python" -c "$check" 2>/dev/null; then
+  if [[ -x "$VENV/bin/python" ]] && "$VENV/bin/python" -c "$check" 2> /dev/null; then
     return
   fi
-  if command -v uv >/dev/null; then
+  if command -v uv > /dev/null; then
     uv venv -q --clear "$VENV"
     uv pip install -q --python "$VENV/bin/python" "pdfplumber==$PDFPLUMBER_VERSION"
   else

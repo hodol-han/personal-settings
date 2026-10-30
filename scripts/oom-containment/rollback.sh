@@ -9,5 +9,5 @@ while read -r unit _; do
   systemctl --user set-property "$unit" MemoryHigh=infinity MemoryMax=infinity TasksMax=infinity
   echo "reset: $unit"
 done < <(systemctl --user list-units 'app-orca-*.scope' --state=running --no-legend --plain)
-sed -i '/^OPENCLAW_CHILD_OOM_SCORE_ADJ=/d' "$HOME/.openclaw/gateway.systemd.env" 2>/dev/null || true
+sed -i '/^OPENCLAW_CHILD_OOM_SCORE_ADJ=/d' "$HOME/.openclaw/gateway.systemd.env" 2> /dev/null || true
 echo "rolled back (gateway env change effective on next gateway restart)"

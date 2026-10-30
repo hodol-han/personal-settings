@@ -7,8 +7,8 @@ CACHE_DIR="$HOME/.cache/bazel/_bazel_$(id -un)/cache/disk"
 STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/personal-settings/cck-bazel"
 STAGE_DIR="$(mktemp -d)"
 BACKUP_DIR="$STATE_DIR/backups/$(date -u +%Y%m%dT%H%M%SZ)-$$"
-TIMER_ENABLED_BEFORE="$(systemctl --user is-enabled systemd-tmpfiles-clean.timer 2>/dev/null || true)"
-TIMER_ACTIVE_BEFORE="$(systemctl --user is-active systemd-tmpfiles-clean.timer 2>/dev/null || true)"
+TIMER_ENABLED_BEFORE="$(systemctl --user is-enabled systemd-tmpfiles-clean.timer 2> /dev/null || true)"
+TIMER_ACTIVE_BEFORE="$(systemctl --user is-active systemd-tmpfiles-clean.timer 2> /dev/null || true)"
 PATHS=(
   .bazelrc
   .codex/AGENTS.md
@@ -56,10 +56,10 @@ rollback() {
     fi
   done
   if [[ "$TIMER_ENABLED_BEFORE" != enabled ]]; then
-    systemctl --user disable systemd-tmpfiles-clean.timer >/dev/null 2>&1
+    systemctl --user disable systemd-tmpfiles-clean.timer > /dev/null 2>&1
   fi
   if [[ "$TIMER_ACTIVE_BEFORE" != active ]]; then
-    systemctl --user stop systemd-tmpfiles-clean.timer >/dev/null 2>&1
+    systemctl --user stop systemd-tmpfiles-clean.timer > /dev/null 2>&1
   fi
   echo "restore failed; previous files restored from $BACKUP_DIR" >&2
   exit "$status"

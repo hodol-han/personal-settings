@@ -33,6 +33,6 @@ echo "verified: writable shared Bazel disk cache"
 test -f "$CCK_WORKSPACE/.bazeliskrc"
 rc_output="$(cd "$CCK_WORKSPACE" && bazel --batch info --announce_rc release 2>&1)"
 grep -F -- "Reading rc options for 'info' from $HOME/.bazelrc:" \
-  <<< "$rc_output" >/dev/null
-grep -F -- "--disk_cache=$CACHE_DIR" <<< "$rc_output" >/dev/null
+  <<< "$rc_output" > /dev/null
+grep -F -- "--disk_cache=$CACHE_DIR" <<< "$rc_output" > /dev/null
 echo "verified: CCK effective Bazel rc"

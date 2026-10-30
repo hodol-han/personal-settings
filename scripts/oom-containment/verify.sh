@@ -7,6 +7,6 @@ for d in "$CG"/app-orca-*.scope; do
   echo "$(basename "$d"): high=$(cat "$d/memory.high") max=$(cat "$d/memory.max") pids.max=$(cat "$d/pids.max")"
 done
 echo "gateway children oom_score_adj (expect no 1000 after gateway restart):"
-for p in $(cat "$CG/openclaw-gateway.service/cgroup.procs" 2>/dev/null); do
-  cat /proc/$p/oom_score_adj 2>/dev/null
-done | sort | uniq -c
+while read -r p; do
+  cat "/proc/$p/oom_score_adj" 2> /dev/null
+done < <(cat "$CG/openclaw-gateway.service/cgroup.procs" 2> /dev/null) | sort | uniq -c

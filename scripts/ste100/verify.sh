@@ -15,14 +15,14 @@ echo "verified: PDF checksum"
 expect_alt() {
   jq -e --arg w "$1" --arg p "$2" --arg a "$3" \
     'any(.[]; .word == $w and .pos == $p and .approved == false
-      and any(.senses[]; .alternative == $a))' "$DICT" >/dev/null
+      and any(.senses[]; .alternative == $a))' "$DICT" > /dev/null
 }
 expect_approved() {
   jq -e --arg w "$1" --arg p "$2" \
-    'any(.[]; .word == $w and .pos == $p and .approved == true)' "$DICT" >/dev/null
+    'any(.[]; .word == $w and .pos == $p and .approved == true)' "$DICT" > /dev/null
 }
 expect_absent() {
-  jq -e --arg w "$1" 'all(.[]; (.word | ascii_downcase) != $w)' "$DICT" >/dev/null
+  jq -e --arg w "$1" 'all(.[]; (.word | ascii_downcase) != $w)' "$DICT" > /dev/null
 }
 expect_approved NECESSARY adj
 expect_approved FUNCTION n
@@ -34,7 +34,7 @@ expect_absent practice
 expect_absent meaning
 # Change-log lines ("... STE example revised.") must not become entries.
 jq -e 'all(.[].senses[]; ((.meaning // .alternative) | test("example revised") | not))' \
-  "$DICT" >/dev/null
+  "$DICT" > /dev/null
 echo "verified: dictionary.json"
 
 # Rule text must be in the body of its Part 1 section page, not only in the change log.
@@ -42,8 +42,8 @@ echo "verified: dictionary.json"
 section() {
   awk -v head="## Page $1 " 'index($0, head) == 1 {f = 1; next} /^## /{f = 0} f' "$RULES"
 }
-section 1-1-1 | grep '^Rule 1\.1 ' >/dev/null
-section 1-9-1 | grep '^Rule 9\.1 ' >/dev/null
+section 1-1-1 | grep '^Rule 1\.1 ' > /dev/null
+section 1-9-1 | grep '^Rule 9\.1 ' > /dev/null
 echo "verified: ste100.md"
 
 for path in .claude/CLAUDE.md .codex/AGENTS.md; do

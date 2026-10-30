@@ -16,7 +16,7 @@ done < <(systemctl --user list-units 'app-orca-*.scope' --state=running --no-leg
 # openclaw: stop self-marking children with oom_score_adj=1000 (upstream opt-out)
 ENVF="$HOME/.openclaw/gateway.systemd.env"
 touch "$ENVF"
-grep -q '^OPENCLAW_CHILD_OOM_SCORE_ADJ=' "$ENVF" \
-  || echo 'OPENCLAW_CHILD_OOM_SCORE_ADJ=0' >> "$ENVF"
+grep -q '^OPENCLAW_CHILD_OOM_SCORE_ADJ=' "$ENVF" ||
+  echo 'OPENCLAW_CHILD_OOM_SCORE_ADJ=0' >> "$ENVF"
 echo "NOTE: gateway env takes effect on next 'systemctl --user restart openclaw-gateway'"
 "$REPO/scripts/oom-containment/verify.sh"
