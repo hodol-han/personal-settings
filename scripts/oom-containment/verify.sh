@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Show effective limits on live orca scopes + gateway child adj distribution.
 set -euo pipefail
-CG=/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/app.slice
+CG="/sys/fs/cgroup/user.slice/user-$(id -u).slice/user@$(id -u).service/app.slice"
 for d in "$CG"/app-orca-*.scope; do
   [ -d "$d" ] || continue
   echo "$(basename "$d"): high=$(cat "$d/memory.high") max=$(cat "$d/memory.max") pids.max=$(cat "$d/pids.max")"
