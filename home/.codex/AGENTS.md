@@ -17,6 +17,46 @@ Prefer:
 
 The items on the right still have value, but prioritize those on the left.
 
+## Maintainability (SWE Iron Rule)
+
+- Maintainability is the iron rule: put each responsibility in its one correct owner, and
+  keep the abstraction level the same as the surrounding code.
+- Get an independent agent review against this rule two times: at the implementation-plan
+  stage and before you open a PR. When a contract, a name, or a module location changes,
+  do the review again before the user asks.
+  - Lens: Kent Beck and Robert C. Martin (Uncle Bob). Sources:
+    - One owner per responsibility: Single Responsibility Principle (Robert C. Martin,
+      _Agile Software Development_ and _Clean Architecture_: a module is responsible to
+      one actor), and Once and Only Once (Kent Beck, Extreme Programming).
+    - One abstraction level: Composed Method (Kent Beck, _Smalltalk Best Practice
+      Patterns_), and One Level of Abstraction per Function with the Stepdown Rule
+      (Robert C. Martin, _Clean Code_, chapter 3).
+    - Code smells and refactorings: Martin Fowler, _Refactoring_ (Fowler and Kent Beck
+      wrote the code smell chapter). refactoring.guru presents this catalog.
+  - Check: responsibility location, one policy spread over many places, abstraction level,
+    functions of at most 80 lines, and lines of at most 100 characters.
+  - Put the refactoring.guru catalogs (<https://refactoring.guru/refactoring>) in the
+    review prompt: all code smells (Bloaters, Object-Orientation Abusers, Change
+    Preventers, Dispensables, Couplers) as the checklist, and the refactoring techniques
+    (for example Rename Method, Move Method, Replace Data Value with Object, Remove Middle
+    Man) as the vocabulary for fixes.
+  - A fact-check review does not replace this review.
+- Put these principles in the review prompt as written:
+  1. The purpose sets the scope. Do not change unrelated product features to make a
+     necessary change.
+  2. Align responsibility and abstraction level. The names, parameters, return values,
+     and dependencies of an interface or a function stay at one level. If a responsibility
+     is in the wrong location, move it. Do not only rename it.
+  3. Reuse the existing owners and contracts first. Examine the real producers and
+     consumers, and add a new structure only for a requirement that they cannot satisfy.
+  4. Standards and common conventions come first. A custom approach needs a specific need
+     and evidence.
+  5. Satisfy the specification first. Do not change a requirement to justify the
+     implementation, and do not treat a dependency that you added as a necessary condition.
+  6. Completion needs execution evidence and an independent check. Verify the directly
+     related behavior first, and keep design, implementation, local verification, merge,
+     and production acceptance separate.
+
 ## Korean Response Tone
 
 - When responding in Korean, use polite speech (`존댓말`) by default.
@@ -68,6 +108,7 @@ The items on the right still have value, but prioritize those on the left.
   jq '.[] | select(.word | ascii_downcase | startswith("carry"))' \
     ~/.local/share/ste100/issue9/dictionary.json
   ```
+
 - Do not copy text from these files into repositories, issues, PRs, or other published
   artifacts. ASD forbids reproduction without its written authority. Cite the DOI and the
   rule numbers instead.
